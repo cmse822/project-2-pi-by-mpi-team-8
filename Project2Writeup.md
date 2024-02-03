@@ -19,12 +19,12 @@ In this project you will explore using basic MPI collectives on HPCC. After fini
 
 As a group, complete the following exercises from [HPSC](../assets/EijkhoutIntroToHPC2020.pdf).
 
-- Exercise 2.18
-- Exercise 2.19
-- Exercise 2.21
-- Exercise 2.22
-- Exercise 2.23
-- Exercise 2.27
+| Exercise 2.18 | Reference page 105 |
+| Exercise 2.19 | Reference page 106 |
+| Exercise 2.21 | Reference page 112 |
+| Exercise 2.22 | Reference page 115 |
+| Exercise 2.23 | Reference page 117 |
+| Exercise 2.27 | Reference page 130 |
 
 Include your responses to these exercises in your project write-up.
 
