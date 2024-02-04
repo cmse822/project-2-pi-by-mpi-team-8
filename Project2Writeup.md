@@ -4,6 +4,8 @@
 
 ## Learning goals
 
+Disclosure, this assignment was assisted with the use of ChatGPT
+
 In this project you will explore using basic MPI collectives on HPCC. After finishing this project, you should
 
 - understand how to parallelize a simple serial code with MPI,
@@ -19,14 +21,14 @@ In this project you will explore using basic MPI collectives on HPCC. After fini
 
 As a group, complete the following exercises from [HPSC](../assets/EijkhoutIntroToHPC2020.pdf).
 
-| Exercise Num  | Reference Page     |
-| :------------:|:-------------------|
-| Exercise 2.18 | Reference page 105 |
-| Exercise 2.19 | Reference page 106 |
-| Exercise 2.21 | Reference page 112 |
-| Exercise 2.22 | Reference page 115 |
-| Exercise 2.23 | Reference page 117 |
-| Exercise 2.27 | Reference page 130 |
+| Exercise Num  | Reference Page     | Problem Answers  |
+| :------------:|:-------------------| :---------------:|
+| Exercise 2.18 | Reference page 103 | There are many types of race conditions that could happen in the parallel for loop. Since a[i] will be accessed by multiple threads, this value will be overwritten. Depending on which processor is running the for loop, elements would be overwritten and be stored in different caches depending on the memory location. Additionally, the a[i] needs to be global but writing back to memory can only be done with one tread at a time to prevent race conditions. |
+| Exercise 2.19 | Reference page 106 | Programming the for loop in this way is not good for performance because multiple threads are sharing the same cache line. Even though there are two threads computing this problem, the processor may need to synchronize more often then necessary when one thread updates its variable. When this happens, the entire cache line is marked invalid even though the other variables are not related to the update. Since there is increased communication between threads and processors, there is decreased performance. A good chunksize would be one where the treads can work in their own cache lines without interfereing with each other. |
+| Exercise 2.21 | Reference page 112 | Not Complete |
+| Exercise 2.22 | Reference page 115 | Not Complete |
+| Exercise 2.23 | Reference page 117 | Not Complete |
+| Exercise 2.27 | Reference page 130 | Not Complete |
 
 Include your responses to these exercises in your project write-up.
 
