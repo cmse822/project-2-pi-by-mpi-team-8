@@ -10,6 +10,7 @@
 ***************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
+#include "mpi.h"
 
 void srandom (unsigned seed);  
 double dboard (int darts);
@@ -23,6 +24,16 @@ double pi;          	/* average of pi after "darts" is thrown */
 double avepi;       	/* average pi value for all iterations */
 int i, n;
 
+/* MPI Setup */
+int numtasks, rank, len, rc;
+MPI_Status Stat;
+char hostname[MPI_MAX_PROCESSOR_NAME];
+
+MPI_Init(&argc, &argv);
+MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
+MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+double time_start = MPI_Wtime();
+
 printf("Starting serial version of pi calculation using dartboard algorithm...\n");
 srandom (5);            /* seed the random number generator */
 avepi = 0;
@@ -33,6 +44,13 @@ for (i = 0; i < ROUNDS; i++) {
    printf("   After %3d throws, average value of pi = %10.8f\n",
          (DARTS * (i + 1)),avepi);
    }    
+
+MPI_Get_processor_name(hostname, &len);
+printf("Number of tasks= %d My rank= %d Running on %s\n", numtasks, rank, hostname);
+
+double time_end = MPI_Wtime();
+printf("\nTotal time: %f for rank %d", (time_end - time_start), rank);
+MPI_Finalize();
 printf("\nReal value of PI: 3.1415926535897 \n");
 }
 
