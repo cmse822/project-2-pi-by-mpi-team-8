@@ -1,7 +1,7 @@
 #include "mpi.h"
-#include <iostream>
+%#include <iostream>
 #include <stdio.h>
-using namespace std;
+%using namespace std;
 
 int main(int argc, char *argv[]) 
 {
