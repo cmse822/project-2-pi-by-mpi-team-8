@@ -12,6 +12,6 @@ int main(int argc, char *argv[])
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     printf("Hello, World! (After Init, Before Finalize)\n");
     MPI_Finalize();
-    printf("Hello, World! (After Init)\n");
+    printf("Hello, World! (After Finalize)\n");
     return 0;
 }

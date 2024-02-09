@@ -90,6 +90,9 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
 
 4. Add the commands `MPI_Init` and `MPI_Finalize` to your code. Put three different print statements in your code: one before the init, one between init and finalize, and one after the finalize. Recompile and run the executable, both in serial and with `mpiexec`, and explain the output.
 
+    !["Hello World! with MPI commands](part3_4.png)
+    There are four print statements before the MPI initialize, four print statments after initialize and before finalize, four print statemtns after finalize.
+
 5. Complete Exercises 2.3, 2.4, and 2.5 in the [Parallel Programing](../assets/EijkhoutParallelProgramming.pdf) book. #Cheng
 
 ## Part 4: Eat Some Pi  (TODO: Berk, write up/screenshots)
