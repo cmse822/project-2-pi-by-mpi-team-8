@@ -32,7 +32,7 @@ As a group, complete the following exercises from [HPSC](../assets/EijkhoutIntro
 
 Include your responses to these exercises in your project write-up.
 
-## Part 2: Setup on HPCC (TODO: Jared, write up/screenshots)
+## Part 2: Setup on HPCC
 
 The following is a very quick tutorial on the basics of using HPCC for this class.
 
@@ -63,7 +63,7 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
     ```
 
 5. Run `devjob`, then to request 4 tasks for 90 minutes. This should be sufficient for most of the stuff we do during class, though for your projects you will at times require more resources. The above `module` and `alias` commands can be added to your `.bashrc` so that they are automatically executed when you log in.
-
+    ![Part 2 screenshot](part2.png)
 
 
 ## Part 3: MPI Basics  (TODO: Jacob, write up/screenshots)
@@ -77,11 +77,14 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
     ./a.out
     ```
 
+    !["Hello World! In Serial](part3_2.png)
+
 3. Now run the executable `a.out` using the MPI parallel run command and explain the output:
 
     ```shell
     mpiexec -n 4 ./a.out 
     ```
+    !["Hello World! In Parallel](part3_3.png)
 
     When implementing part 2, HPCC prints out "Hello, World!" once. For part 3 and typing "mpiexec -n 4 ./a.out" prints "Hello, World!" four times.
 
