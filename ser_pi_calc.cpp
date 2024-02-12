@@ -21,7 +21,7 @@ double dboard (int darts);
 int main(int argc, char *argv[])
 {
 double pi;          	/* average of pi after "darts" is thrown */
-double avepi;       	/* average pi value for all iterations */
+double avepi[4];       	/* average pi value for all iterations */
 int i, n;
 
 /* MPI Setup */
@@ -29,6 +29,7 @@ int numtasks, rank, len, rc;
 MPI_Status Stat;
 char hostname[MPI_MAX_PROCESSOR_NAME];
 
+// Part 
 MPI_Init(&argc, &argv);
 MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
 MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -36,14 +37,15 @@ double time_start = MPI_Wtime();
 
 printf("Starting serial version of pi calculation using dartboard algorithm...\n");
 srandom (5);            /* seed the random number generator */
-avepi = 0;
-for (i = 0; i < ROUNDS; i++) {
+avepi = [0, 0, 0, 0];
+for (i = 0; i < ROUNDS / numtasks; i++)
+{
    /* Perform pi calculation on serial processor */
    pi = dboard(DARTS);
-   avepi = ((avepi * i) + pi)/(i + 1); 
+   avepi[4] = ((avepi * i) + pi)/(i + 1); 
    printf("   After %3d throws, average value of pi = %10.8f\n",
          (DARTS * (i + 1)),avepi);
-   }    
+}
 
 MPI_Get_processor_name(hostname, &len);
 printf("Number of tasks= %d My rank= %d Running on %s\n", numtasks, rank, hostname);
