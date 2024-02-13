@@ -24,10 +24,10 @@ int main(int argc, char *argv[])
 
 
     // Create a file, write, then close 
-    char filename[10]
+    char filename[10];
     sprintf(filename, "file_%d.txt", rank);
     FILE *file = fopen(filename, 'w');
-    fprintf("Hello from process %d of %d!\n", rank, numtasks);
+    fprintf(file, "Hello from process %d of %d!\n", rank, numtasks);
     fclose(file);
 
 
