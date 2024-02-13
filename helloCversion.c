@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 
     //Exercise 2.5
     if (rank == 0) {
-        printf("Number of processors: %d\n", numtasks);
+        printf("Rank number %d, Number of processors: %d\n", rank, numtasks);
     }
 
 
