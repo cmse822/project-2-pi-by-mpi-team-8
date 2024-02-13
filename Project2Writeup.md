@@ -93,17 +93,19 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
     !["Hello World! with MPI commands](part3_4.png)
     There are four print statements before the MPI initialize, four print statments after initialize and before finalize, four print statemtns after finalize. (Not correct, look at book problems 2.3-2.5)
 
-5. Complete Exercises 2.3, 2.4, and 2.5 in the [Parallel Programing](../assets/EijkhoutParallelProgramming.pdf) book.
+5. Complete Exercises 2.3, 2.4, and 2.5 in the [Parallel Programing](../assets/EijkhoutParallelProgramming.pdf) book. <br>
 
-    For all exercises, please reference helloCversion.c. 
-    Exercise 2.3:
+    For all exercises, please reference helloCversion.c. <br>
+
+    Exercise 2.3: <br>
     !["Exercise 2.3](2.3.png)
 
-    Exercise 2.4:
-    !["Exercise 2.3](2.4Part1.png)
+    Exercise 2.4: <br>
+    !["Exercise 2.3](2.4Part1.png) <br>
+    
     Please see files "file_1.txt" and "file_0.txt" for the written responses for second version of this program.
 
-    Exercise 2.5:
+    Exercise 2.5: <br>
     !["Exercise 2.3](2.5.png)
 
 ## Part 4: Eat Some Pi  (TODO: Berk, write up/screenshots)
