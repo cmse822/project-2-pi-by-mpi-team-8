@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
     // Exercise 2.4
     // Create a file, write, then close 
-    char filename[10];
+    char filename[20];
     sprintf(filename, "Exercise_2.4_file_%d.txt", rank);
     
     // Open the file for writing
