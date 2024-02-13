@@ -14,7 +14,8 @@ int main(int argc, char *argv[])
     int name_length = MPI_MAX_PROCESSOR_NAME;
     char proc_name[name_length];
     MPI_Get_processor_name(proc_name, &name_length);
-    printf("Process %d%d is running on node <<%s>>\n", procid, nprocs, proc_name);
+    printf("Process %d of %d is running on node <<%s>>\n", rank, numtasks, proc_name);
+    //In line above, removed procid, nprocs from printf 
     MPI_Finalize();
     //printf("Hello, World! (After Finalize)\n");
     return 0;
