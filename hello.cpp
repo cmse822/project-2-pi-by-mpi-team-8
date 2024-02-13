@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     //printf("Hello, World! (After Init, Before Finalize)\n");
-    int name_length = MPI_MAX_PROCESSOR_NAME;
+    int name_length = MPI_Get_processor_name;
     char proc_name[name_length];
     MPI_Get_Processor_name(proc_name, &name_length);
     //printf("Process %d%d is running on node <<%s>>\n", procid, nprocs, proc_name)
