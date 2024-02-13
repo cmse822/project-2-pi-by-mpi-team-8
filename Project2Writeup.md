@@ -97,29 +97,9 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
 
 | Exercise Num  | Problem Answers    |
 | :------------:|:-------------------:|
-| Exercise 2.3  | First, given that an addition and moving a number from one processor to another both take a unit time. In each step, we are (1) adding two numbers and (2) moving a number to another processor. So the communication time equals the computation time.
-   Second, if sending a number from processor p to p+-k takes time k, the communication time increase linearly with distance k, but the number of steps to complete the reduction is log in the size of n, since the number of numbers reduce by half in each step. So the execution time of the parallel algorithm is of the same order as the sequential time. |
-| Exercise 2.4 | The case of summing 8 elements with 4 processors.
-   Initial Condition: Each processor has two elements.
-   Step 1: Each processor sums its two elements. (no communication)
-   Step 2: Two processors sum the numbers. (2 communication)
-   Step 3: One processor sums the two result in Step 2. (1 communication)
-   Comparing to Figure 2.3 of the textbook, this is the same as saying the edges connected to the top layer of the graph does not correspond to actual communications.
-   The case of summing 16 elements with 4 processors.
-   Initial Condition: Each processor has four elements.
-   Step 1: Each processor sums two pair of elements into two numbers. (no communication)
-   Step 2: Fixing one of the two numbers in each processor, two processors sum the numbers. (2 communication)
-   Step 3: One processor sums the two result in Step 2. (1 communication)
-   Step 4: Repeat Step 2 ~ 3 for the other number in each processor.
-   Step 5: Sum the two numbers. (no communication)
-   The number of communication edges is 6. |
-| Exercise 2.5 | 1. No, since x[i,j] depends on x[i,j-1].
-
-   2. No, since x[i,j] depends on x[i-1,j].
-   3. x[2,1] = x[1,1] + x[2,0], where x[1,1] is known and x[2,0] is also known from the first loop.
-      Similarly, x[1,2] = x[0,2] + x[1,1], where x[2,0] is known from the first loop and x[1,1] is also known.
-      Therefore, if x[1,1] is known, then both x[2,1] and x[1,2] can be computed independently.
-   4. Starting with x[1,1] known, we can compte x[2,1] and x[1,2] independently. The underlying background may be that all x[i,j] with i + j = some   constant do not depend on each other. In this case, a strategy will be to initialize by computing x[1,1] after the first loop, and parallelly compute all elements x[i,j], i + j = 3, and then move on to all elements x[i,j], i + j = 4, and so on. |
+| Exercise 2.3  | First, given that an addition and moving a number from one processor to another both take a unit time. In each step, we are (1) adding two numbers and (2) moving a number to another processor. So the communication time equals the computation time. Second, if sending a number from processor p to p+-k takes time k, the communication time increase linearly with distance k, but the number of steps to complete the reduction is log in the size of n, since the number of numbers reduce by half in each step. So the execution time of the parallel algorithm is of the same order as the sequential time. |
+| Exercise 2.4 | The case of summing 8 elements with 4 processors. Initial Condition: Each processor has two elements. Step 1: Each processor sums its two elements. (no communication) Step 2: Two processors sum the numbers. (2 communication) Step 3: One processor sums the two result in Step 2. (1 communication). Comparing to Figure 2.3 of the textbook, this is the same as saying the edges connected to the top layer of the graph does not correspond to actual communications. The case of summing 16 elements with 4 processors. Initial Condition: Each processor has four elements. Step 1: Each processor sums two pair of elements into two numbers. (no communication). Step 2: Fixing one of the two numbers in each processor, two processors sum the numbers. (2 communication). Step 3: One processor sums the two result in Step 2. (1 communication). Step 4: Repeat Step 2 ~ 3 for the other number in each processor. Step 5: Sum the two numbers. (no communication). The number of communication edges is 6. |
+| Exercise 2.5 | 1. No, since x[i,j] depends on x[i,j-1]. 2. No, since x[i,j] depends on x[i-1,j]. 3. x[2,1] = x[1,1] + x[2,0], where x[1,1] is known and x[2,0] is also known from the first loop. Similarly, x[1,2] = x[0,2] + x[1,1], where x[2,0] is known from the first loop and x[1,1] is also known. Therefore, if x[1,1] is known, then both x[2,1] and x[1,2] can be computed independently. 4. Starting with x[1,1] known, we can compte x[2,1] and x[1,2] independently. The underlying background may be that all x[i,j] with i + j = some   constant do not depend on each other. In this case, a strategy will be to initialize by computing x[1,1] after the first loop, and parallelly compute all elements x[i,j], i + j = 3, and then move on to all elements x[i,j], i + j = 4, and so on. |
 
 ## Part 4: Eat Some Pi  (TODO: Berk, write up/screenshots)
 
