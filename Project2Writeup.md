@@ -1,6 +1,6 @@
 # Project 2: Getting Started with MPI
 
-## Due: EOD, 9 February
+## Due: EOD, 15 February
 
 ## Learning goals
 
@@ -65,7 +65,6 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
 5. Run `devjob`, then to request 4 tasks for 90 minutes. This should be sufficient for most of the stuff we do during class, though for your projects you will at times require more resources. The above `module` and `alias` commands can be added to your `.bashrc` so that they are automatically executed when you log in.
     ![Part 2 screenshot](part2.png)
 
-
 ## Part 3: MPI Basics  (TODO: Jacob, write up/screenshots)
 
 1. Clone your Project 2 repo from GitHub on HPCC. Done!
@@ -84,6 +83,7 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
     ```shell
     mpiexec -n 4 ./a.out 
     ```
+
     !["Hello World! In Parallel](part3_3.png)
 
     When implementing part 2, HPCC prints out "Hello, World!" once. For part 3 and typing "mpiexec -n 4 ./a.out" prints "Hello, World!" four times.
@@ -93,11 +93,12 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
     !["Hello World! with MPI commands](part3_4.png)
     There are four print statements before the MPI initialize, four print statments after initialize and before finalize, four print statemtns after finalize. (Not correct, look at book problems 2.3-2.5)
 
-5. Complete Exercises 2.3, 2.4, and 2.5 in the [Parallel Programing](../assets/EijkhoutParallelProgramming.pdf) book. 
-   Exercise 2.3: First, given that an addition and moving a number from one processor to another both take a unit time. In each step, we are (1) adding two numbers and (2) moving a number to another processor. So the communication time equals the computation time.
-   Second, if sending a number from processor p to p+-k takes time k, the communication time increase linearly with distance k, but the number of steps to complete the reduction is log in the size of n, since the number of numbers reduce by half in each step. So the execution time of the parallel algorithm is of the same order as the sequential time.
-   Exercise 2.4: 
-   The case of summing 8 elements with 4 processors.
+5. Complete Exercises 2.3, 2.4, and 2.5 in the [Parallel Programing](../assets/EijkhoutParallelProgramming.pdf) book.
+| Exercise Num  | Problem Answers    |
+| :------------:|:-------------------:|
+| Exercise 2.3  | First, given that an addition and moving a number from one processor to another both take a unit time. In each step, we are (1) adding two numbers and (2) moving a number to another processor. So the communication time equals the computation time.
+   Second, if sending a number from processor p to p+-k takes time k, the communication time increase linearly with distance k, but the number of steps to complete the reduction is log in the size of n, since the number of numbers reduce by half in each step. So the execution time of the parallel algorithm is of the same order as the sequential time.|
+| Exercise 2.4 | The case of summing 8 elements with 4 processors.
    Initial Condition: Each processor has two elements.
    Step 1: Each processor sums its two elements. (no communication)
    Step 2: Two processors sum the numbers. (2 communication)
@@ -110,14 +111,13 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
    Step 3: One processor sums the two result in Step 2. (1 communication)
    Step 4: Repeat Step 2 ~ 3 for the other number in each processor.
    Step 5: Sum the two numbers. (no communication)
-   The number of communication edges is 6.
-   Exercise 2.5:
-   1. No, since x[i,j] depends on x[i,j-1].
+   The number of communication edges is 6. |
+| Exercise 2.5 | 1. No, since x[i,j] depends on x[i,j-1].
    2. No, since x[i,j] depends on x[i-1,j].
    3. x[2,1] = x[1,1] + x[2,0], where x[1,1] is known and x[2,0] is also known from the first loop.
       Similarly, x[1,2] = x[0,2] + x[1,1], where x[2,0] is known from the first loop and x[1,1] is also known.
       Therefore, if x[1,1] is known, then both x[2,1] and x[1,2] can be computed independently.
-   4. Starting with x[1,1] known, we can compte x[2,1] and x[1,2] independently. The underlying background may be that all x[i,j] with i + j = some   constant do not depend on each other. In this case, a strategy will be to initialize by computing x[1,1] after the first loop, and parallelly compute all elements x[i,j], i + j = 3, and then move on to all elements x[i,j], i + j = 4, and so on.
+   4. Starting with x[1,1] known, we can compte x[2,1] and x[1,2] independently. The underlying background may be that all x[i,j] with i + j = some   constant do not depend on each other. In this case, a strategy will be to initialize by computing x[1,1] after the first loop, and parallelly compute all elements x[i,j], i + j = 3, and then move on to all elements x[i,j], i + j = 4, and so on. |
 
 ## Part 4: Eat Some Pi  (TODO: Berk, write up/screenshots)
 
