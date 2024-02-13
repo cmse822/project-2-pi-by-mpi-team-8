@@ -22,10 +22,10 @@ int main(int argc, char *argv[])
     //printf("Process %d of %d is running on node <<%s>>\n", rank, numtasks, proc_name);
     //In line above, removed procid, nprocs from printf 
 
-
+    // Exercise 2.4
     // Create a file, write, then close 
     char filename[10];
-    sprintf(filename, "file_%d.txt", rank);
+    sprintf(filename, "Exercise_2.4_file_%d.txt", rank);
     
     // Open the file for writing
     FILE *file = fopen(filename, "w");
@@ -35,6 +35,11 @@ int main(int argc, char *argv[])
     }
     fprintf(file, "Hello from process %d of %d!\n", rank, numtasks);
     fclose(file);
+
+    //Exercise 2.5
+    if (rank == 0) {
+        prinf("Number of processors: %d\n", numtasks)
+    }
 
 
     //printf("Hello from process %d of %d!\n", rank, numtasks);

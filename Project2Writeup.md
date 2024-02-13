@@ -100,6 +100,7 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
 
     Exercise 2.4:
     !["Exercise 2.3](2.4Part1.png)
+    Please see files "file_1.txt" and "file_0.txt" for the written responses for second version of this program.
 
 | Exercise Num  | Problem Answers    |
 | :------------:|:-------------------:|
