@@ -26,7 +26,13 @@ int main(int argc, char *argv[])
     // Create a file, write, then close 
     char filename[10];
     sprintf(filename, "file_%d.txt", rank);
-    FILE *file = fopen(filename, 'w');
+    
+    // Open the file for writing
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        fprintf(stderr, "Process %d: Error opening file %s\n", rank, filename);
+        MPI_Abort(MPI_COMM_WORLD, 1);
+    }
     fprintf(file, "Hello from process %d of %d!\n", rank, numtasks);
     fclose(file);
 
