@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     MPI_Get_processor_name(proc_name, &name_length);
     //printf("Process %d of %d is running on node <<%s>>\n", rank, numtasks, proc_name);
     //In line above, removed procid, nprocs from printf 
-    printf("Hello from process %d of %d\n!", rank, numtasks);
+    printf("Hello from process %d of %d!\n", rank, numtasks);
     MPI_Finalize();
     //printf("Hello, World! (After Finalize)\n");
     return 0;
