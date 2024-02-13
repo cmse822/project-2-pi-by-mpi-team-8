@@ -95,6 +95,10 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
 
 5. Complete Exercises 2.3, 2.4, and 2.5 in the [Parallel Programing](../assets/EijkhoutParallelProgramming.pdf) book.
 
+    Exercise 2.3:
+    !["Exercise 2.3](2.3.png.png)
+
+
 | Exercise Num  | Problem Answers    |
 | :------------:|:-------------------:|
 | Exercise 2.3  | First, given that an addition and moving a number from one processor to another both take a unit time. In each step, we are (1) adding two numbers and (2) moving a number to another processor. So the communication time equals the computation time. Second, if sending a number from processor p to p+-k takes time k, the communication time increase linearly with distance k, but the number of steps to complete the reduction is log in the size of n, since the number of numbers reduce by half in each step. So the execution time of the parallel algorithm is of the same order as the sequential time. |
