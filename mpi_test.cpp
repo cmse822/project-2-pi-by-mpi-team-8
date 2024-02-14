@@ -2,42 +2,50 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "mpi.h"
+#define DARTS                        \
+    {                                \
+        10000, 10000000, 10000000000 \
+    } /* number of throws at dartboard */
 
 int main(int argc, char *argv[]) {
-    printf(argc);
-    MPI_Status Stat;
-    int numtasks, rank, len, rc, dest, source, count, tag = 1;
-
-    MPI_Init(&argc, &argv);
-    MPI_Comm comm = MPI_COMM_WORLD;
-    MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-
-    double time_start = MPI_Wtime();
-
-    int pi_sum, pi = 0;
-    if (rank == 0) {
-        printf("Number of tasks: %d\n", numtasks);
+    for (char dart in DARTS)
+    {
+        printf(dart);
     }
+    // printf(argc);
+    // MPI_Status Stat;
+    // int numtasks, rank, len, rc, dest, source, count, tag = 1;
 
-    if (rank == 2) {
-        printf("Rank: %d waiting...\n", rank);
-        sleep(2);
-    }
+    // MPI_Init(&argc, &argv);
+    // MPI_Comm comm = MPI_COMM_WORLD;
+    // MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
+    // MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-    pi = rank;
-    MPI_Reduce(&pi, &pi_sum, 1, MPI_INT, MPI_SUM, 0, comm);
+    // double time_start = MPI_Wtime();
 
-    printf("Rank: %d blocked...\n", rank);
-    MPI_Barrier(comm);
-    printf("Rank: %d finished.\n", rank);
+    // int pi_sum, pi = 0;
+    // if (rank == 0) {
+    //     printf("Number of tasks: %d\n", numtasks);
+    // }
 
-    double time_end = MPI_Wtime();
+    // if (rank == 2) {
+    //     printf("Rank: %d waiting...\n", rank);
+    //     sleep(2);
+    // }
 
-    printf("Total time: %f for rank %d\n", (time_end - time_start), rank);
-    MPI_Finalize();
-    if (rank == 0) {
-        printf("Pi Avg.: %d \n", pi_sum/numtasks);
+    // pi = rank;
+    // MPI_Reduce(&pi, &pi_sum, 1, MPI_INT, MPI_SUM, 0, comm);
 
-    }
+    // printf("Rank: %d blocked...\n", rank);
+    // MPI_Barrier(comm);
+    // printf("Rank: %d finished.\n", rank);
+
+    // double time_end = MPI_Wtime();
+
+    // printf("Total time: %f for rank %d\n", (time_end - time_start), rank);
+    // MPI_Finalize();
+    // if (rank == 0) {
+    //     printf("Pi Avg.: %d \n", pi_sum/numtasks);
+
+    // }
 }

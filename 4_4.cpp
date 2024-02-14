@@ -15,16 +15,20 @@
 void srandom(unsigned seed);
 double dboard(int darts);
 
-#define DARTS 10000 /* number of throws at dartboard */
+// #define DARTS 1000 /* number of throws at dartboard */
 #define ROUNDS 100  /* number of times "darts" is iterated */
 #define PARENT_NODE 0
 
 int main(int argc, char *argv[])
 {
-   double pi;             /* average of pi after "darts" is thrown */
+   int trial_count = 3;
+   int DART_COUNTS[3] = {1000,
+                             1000000,
+                             1000000000};
+   double pi; /* average of pi after "darts" is thrown */
    double avepi;          /* average pi value for all iterations */
    double pi_avg_sum = 0; /* average of pi all iterations */
-   int i, n;
+   int i, j, n, iDARTS;
    FILE *log_file;
    FILE *data_file;
    char log_file_name[255];
@@ -39,46 +43,52 @@ int main(int argc, char *argv[])
    MPI_Init(&argc, &argv);
    MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
    MPI_Comm comm = MPI_COMM_WORLD;
-   int remaining_jobs = DARTS % numtasks;
+
    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-   snprintf(log_file_name, sizeof(log_file_name), "%d-processes_%u-darts.log", numtasks, DARTS);
-   snprintf(csv_file_name, sizeof(csv_file_name), "%d-processes_%u-darts.csv", numtasks, DARTS);
+   snprintf(log_file_name, sizeof(log_file_name), "%d-processes.log", numtasks);
+   snprintf(csv_file_name, sizeof(csv_file_name), "%d-processes.csv", numtasks);
    log_file = fopen(log_file_name, "a+");   // a+ (create + append) option will allow appending which is useful in a log file
    data_file = fopen(csv_file_name, "a+");   // a+ (create + append) option will allow appending which is useful in a log file
 
-   double time_start = MPI_Wtime();
-   fprintf(log_file, "Number of tasks= %d My rank= %d Running on %s\n", numtasks, rank, hostname);
-   MPI_Get_processor_name(hostname, &len);
-   fprintf(log_file, "Process %d running on %s\n", rank, hostname);
-
-   srandom(5); /* seed the random number generator */
-   avepi = 0;
-   for (i = 0; i < ROUNDS / numtasks; i++)
+   for (j = 0; j < trial_count; j++)
    {
-      /* Perform pi calculation on serial processor */
-      pi = dboard(DARTS);
-      avepi = ((avepi * i) + pi) / (i + 1);
-      // printf("   After %3d throws, average value of pi = %10.8f\n",
-      //       (DARTS * (i + 1)),avepi);
+      iDARTS = DART_COUNTS[j];
+      int remaining_jobs = iDARTS % numtasks;
+
+      double time_start = MPI_Wtime();
+      fprintf(log_file, "Number of tasks= %d My rank= %d Running on %s\n", numtasks, rank, hostname);
+      MPI_Get_processor_name(hostname, &len);
+      fprintf(log_file, "Process %d running on %s\n", rank, hostname);
+
+      srandom(5); /* seed the random number generator */
+      avepi = 0;
+      for (i = 0; i < ROUNDS / numtasks; i++)
+      {
+         /* Perform pi calculation on serial processor */
+         pi = dboard(iDARTS);
+         avepi = ((avepi * i) + pi) / (i + 1);
+         // printf("   After %3d throws, average value of pi = %10.8f\n",
+         //       (DARTS * (i + 1)),avepi);
+      }
+
+      if (rank < remaining_jobs)
+      {
+         pi = dboard(iDARTS);
+         avepi = ((avepi * i) + pi) / (i + 1);
+      }
+
+      MPI_Barrier(comm);
+      MPI_Reduce(&avepi, &pi_avg_sum, 1, MPI_DOUBLE, MPI_SUM, PARENT_NODE, comm);
+
+      double time_end = MPI_Wtime();
+      fprintf(log_file, "\nTotal time: %f for rank %d\n", (time_end - time_start), rank);
+      if (rank == 0)
+      {
+         fprintf(log_file, "Pi Avg.: %f \n", pi_avg_sum / numtasks);
+         fprintf(data_file, "%f,%d,%u,%f,%s\n", (pi_avg_sum / numtasks), numtasks, iDARTS, (time_end - time_start), hostname);
+      }
    }
-
-   if (rank < remaining_jobs)
-   {
-      pi = dboard(DARTS);
-      avepi = ((avepi * i) + pi) / (i + 1);
-   }
-
-   MPI_Barrier(comm);
-   MPI_Reduce(&avepi, &pi_avg_sum, 1, MPI_DOUBLE, MPI_SUM, PARENT_NODE, comm);
-
-   double time_end = MPI_Wtime();
-   fprintf(log_file, "\nTotal time: %f for rank %d\n", (time_end - time_start), rank);
    MPI_Finalize();
-   if (rank == 0)
-   {
-      fprintf(log_file, "Pi Avg.: %f \n", pi_avg_sum / numtasks);
-      fprintf(data_file, "%f,%d,%u,%f,%s\n", (pi_avg_sum / numtasks), numtasks, DARTS, (time_end - time_start), hostname);
-   }
    fprintf(log_file, "\nReal value of PI: 3.1415926535897 \n");
 }
 
