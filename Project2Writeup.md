@@ -135,6 +135,7 @@ Error rate of the convergenc does change with processor count. We would expect s
     !["Hello World! In Parallel](10e6darts.png)
     !["Hello World! In Parallel](10e9darts.png)
 
+Parallel performance definitely vary with performance. In the first graph, we are having much worse relative performance in 32 and 64 cores compared to others. This can be the problem of efficiency of using multiple cores and how each task is allocated to each cores. However, as we increase our number of darts we are seeing much better utilization of the cores. As we double our processor count, we seem to be reducing our runtime by half for 10e6 and 10e9 runs
 
 7. Going further. Try running your code on different node types on HPCC with varied core counts. In particular, try to ensure that your runs utilize multiple nodes so that the communication network is used. Do you see a change in the communication cost when the job is run on more than one node?
 
