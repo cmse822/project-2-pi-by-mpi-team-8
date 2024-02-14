@@ -25,6 +25,8 @@ double pi;          	/* average of pi after "darts" is thrown */
 double avepi;       	/* average pi value for all iterations */
 double pi_avg_sum = 0;  	/* average of pi all iterations */
 int i, n;
+FILE *log_file;
+log_file = fopen("4_3.log", "a+"); // a+ (create + append) option will allow appending which is useful in a log file
 
 /* MPI Setup */
 int numtasks, rank, len, rc, dest, source, count, tag = 1;
@@ -38,9 +40,9 @@ MPI_Comm comm = MPI_COMM_WORLD;
 
 MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 double time_start = MPI_Wtime();
-printf("Number of tasks= %d My rank= %d Running on %s\n", numtasks, rank, hostname);
+fprintf(log_file , "Number of tasks= %d My rank= %d Running on %s\n", numtasks, rank, hostname);
 MPI_Get_processor_name(hostname, &len);
-printf("Process %d running on %s\n", rank, hostname);
+fprintf(log_file , "Process %d running on %s\n", rank, hostname);
 
 srandom (5);            /* seed the random number generator */
 avepi = 0;
@@ -57,13 +59,13 @@ MPI_Reduce(&avepi, &pi_avg_sum, 1, MPI_DOUBLE, MPI_SUM, PARENT_NODE, comm);
 
 
 double time_end = MPI_Wtime();
-printf("\nTotal time: %f for rank %d\n", (time_end - time_start), rank);
+fprintf(log_file, "\nTotal time: %f for rank %d\n", (time_end - time_start), rank);
 MPI_Finalize();
 if (rank == 0)
 {
-   printf("Pi Avg.: %f \n", pi_avg_sum / numtasks);
+   fprintf(log_file, "Pi Avg.: %f \n", pi_avg_sum / numtasks);
 }
-printf("\nReal value of PI: 3.1415926535897 \n");
+fprintf(log_file, "\nReal value of PI: 3.1415926535897 \n");
 }
 
 
