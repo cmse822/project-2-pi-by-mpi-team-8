@@ -17,42 +17,52 @@ double dboard (int darts);
 
 #define DARTS 10000   	/* number of throws at dartboard */
 #define ROUNDS 100    	/* number of times "darts" is iterated */
+#define PARENT_NODE 0
 
 int main(int argc, char *argv[])
 {
 double pi;          	/* average of pi after "darts" is thrown */
-double avepi[4];       	/* average pi value for all iterations */
+double avepi;       	/* average pi value for all iterations */
+double pi_avg_sum = 0;  	/* average of pi all iterations */
 int i, n;
 
 /* MPI Setup */
-int numtasks, rank, len, rc;
-MPI_Status Stat;
+int numtasks, rank, len, rc, dest, source, count, tag = 1;
 char hostname[MPI_MAX_PROCESSOR_NAME];
+MPI_Status Stat;
 
 // Part 
 MPI_Init(&argc, &argv);
 MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
+MPI_Comm comm = MPI_COMM_WORLD;
+
 MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 double time_start = MPI_Wtime();
+printf("Number of tasks= %d My rank= %d Running on %s\n", numtasks, rank, hostname);
+MPI_Get_processor_name(hostname, &len);
+printf("Process %d running on %s\n", rank, hostname);
 
-printf("Starting serial version of pi calculation using dartboard algorithm...\n");
 srandom (5);            /* seed the random number generator */
-avepi = [0, 0, 0, 0];
+avepi = 0;
 for (i = 0; i < ROUNDS / numtasks; i++)
 {
    /* Perform pi calculation on serial processor */
    pi = dboard(DARTS);
-   avepi[4] = ((avepi * i) + pi)/(i + 1); 
-   printf("   After %3d throws, average value of pi = %10.8f\n",
-         (DARTS * (i + 1)),avepi);
+   avepi = ((avepi * i) + pi)/(i + 1); 
+   // printf("   After %3d throws, average value of pi = %10.8f\n",
+   //       (DARTS * (i + 1)),avepi);
 }
 
-MPI_Get_processor_name(hostname, &len);
-printf("Number of tasks= %d My rank= %d Running on %s\n", numtasks, rank, hostname);
+MPI_Reduce(&avepi, &pi_avg_sum, 1, MPI_DOUBLE, MPI_SUM, PARENT_NODE, comm);
+
 
 double time_end = MPI_Wtime();
-printf("\nTotal time: %f for rank %d", (time_end - time_start), rank);
+printf("\nTotal time: %f for rank %d\n", (time_end - time_start), rank);
 MPI_Finalize();
+if (rank == 0)
+{
+   printf("Pi Avg.: %f \n", pi_avg_sum / numtasks);
+}
 printf("\nReal value of PI: 3.1415926535897 \n");
 }
 
@@ -77,8 +87,8 @@ double dboard(int darts)
  * not the right size
  ************************************************************************/
    if (sizeof(cconst) != 4) {
-      printf("Wrong data size for cconst variable in dboard routine!\n");
-      printf("See comments in source file. Quitting.\n");
+      // printf("Wrong data size for cconst variable in dboard routine!\n");
+      // printf("See comments in source file. Quitting.\n");
       exit(1);
       }
    /* 2 bit shifted to MAX_RAND later used to scale random number between 0 and 1 */
