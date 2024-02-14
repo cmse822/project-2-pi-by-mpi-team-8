@@ -131,6 +131,10 @@ Error rate of the convergenc does change with processor count. We would expect s
 
 
 6. For each dart count, make a plot of runtime versus processor count. Each line represents a "strong scaling" study for your code. For each dart count, also plot the "ideal" scaling line. Calculate the parallel scaling efficiency of your code for each dart count. Does the parallel performance vary with dart count? Explain your answer.
+    !["Hello World! In Parallel](10e3darts.png)
+    !["Hello World! In Parallel](10e6darts.png)
+    !["Hello World! In Parallel](10e9darts.png)
+
 
 7. Going further. Try running your code on different node types on HPCC with varied core counts. In particular, try to ensure that your runs utilize multiple nodes so that the communication network is used. Do you see a change in the communication cost when the job is run on more than one node?
 
