@@ -122,6 +122,14 @@ Pi is the ratio of a circle's circumference to its diameter. As such, the value 
 
 5. For each processor count, plot the resulting errors in your computed values of `pi` compared to the true value as functions of the number of darts used to compute it. Use log-log scaling on this plot. What is the rate of convergence of your algorithm for computing `pi`? Does this value make sense? Does the error or rate of convergence to the correct answer vary with processor count? Should it?
 
+    !["Hello World! In Parallel](4_5.png)
+    !["Hello World! In Parallel](convergence.png)
+Convergence values of the pi values makes sense according to their errors. For example, error values from 2 core runs are fairly small already and even a small improvement causes relative convegence to increase drastically. However, in 64 runs the initial error is so large, the drop from 10^6 to 10^9 seems dwarfed by it.
+
+Error rate of the convergenc does change with processor count. We would expect small amounts of change due to rounding errors or overflowing.In the end, we achieved we were able to achieve numbers really close to the original value of pi by incresing dart numbers.
+<https://hal.science/file/index/docid/281429/filename/floating-point-article.pdf>
+
+
 6. For each dart count, make a plot of runtime versus processor count. Each line represents a "strong scaling" study for your code. For each dart count, also plot the "ideal" scaling line. Calculate the parallel scaling efficiency of your code for each dart count. Does the parallel performance vary with dart count? Explain your answer.
 
 7. Going further. Try running your code on different node types on HPCC with varied core counts. In particular, try to ensure that your runs utilize multiple nodes so that the communication network is used. Do you see a change in the communication cost when the job is run on more than one node?

@@ -16,16 +16,16 @@ void srandom(unsigned seed);
 double dboard(int darts);
 
 // #define DARTS 1000 /* number of throws at dartboard */
-#define ROUNDS 100  /* number of times "darts" is iterated */
+#define ROUNDS 100 /* number of times "darts" is iterated */
 #define PARENT_NODE 0
 
 int main(int argc, char *argv[])
 {
    int trial_count = 3;
    int DART_COUNTS[3] = {1000,
-                             1000000,
-                             1000000000};
-   double pi; /* average of pi after "darts" is thrown */
+                         1000000,
+                         1000000000};
+   double pi;             /* average of pi after "darts" is thrown */
    double avepi;          /* average pi value for all iterations */
    double pi_avg_sum = 0; /* average of pi all iterations */
    int i, j, n, iDARTS;
@@ -47,8 +47,8 @@ int main(int argc, char *argv[])
    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
    snprintf(log_file_name, sizeof(log_file_name), "%d-processes.log", numtasks);
    snprintf(csv_file_name, sizeof(csv_file_name), "%d-processes.csv", numtasks);
-   log_file = fopen(log_file_name, "a+");   // a+ (create + append) option will allow appending which is useful in a log file
-   data_file = fopen(csv_file_name, "a+");   // a+ (create + append) option will allow appending which is useful in a log file
+   log_file = fopen(log_file_name, "a+");  // a+ (create + append) option will allow appending which is useful in a log file
+   data_file = fopen(csv_file_name, "a+"); // a+ (create + append) option will allow appending which is useful in a log file
 
    for (j = 0; j < trial_count; j++)
    {
