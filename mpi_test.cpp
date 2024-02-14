@@ -4,6 +4,7 @@
 #include "mpi.h"
 
 int main(int argc, char *argv[]) {
+    printf(argc);
     MPI_Status Stat;
     int numtasks, rank, len, rc, dest, source, count, tag = 1;
 
