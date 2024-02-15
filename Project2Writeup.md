@@ -143,7 +143,7 @@ Parallel performance definitely vary with performance. In the first graph, we ar
     !["Hello World! In Parallel](5_7_10e6.png)
     !["Hello World! In Parallel](5_7_10e9.png)
 
-    We can see relatively drastic changes in runtime when we are going from 2-4-8 especially when they are running on different nodes on HPCC. However, for further node counts we were not able to make sure they were running on different HPCC nodes, which causes a dip in the graph. 
+    We can see relatively drastic changes in runtime when we are going from 2-4-8 especially when they are running on different nodes on HPCC. However, for further node counts we were not able to make sure they were running on different HPCC nodes, which causes a dip in the graph. The first two plots have noise because it is recording the jitter in the operation system. Therefore, there is more variation in the data due to the jitter.
 ## What to turn-in
 
 To your git project repo, commit your final working code for the above exercises and a concise write-up including responses to the warm-up exercises, performance and accuracy data for your calculations of `pi`, the plots made in Part 4, and detailed responses to the questions posed concerning your results.
