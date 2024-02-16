@@ -116,7 +116,15 @@ Pi is the ratio of a circle's circumference to its diameter. As such, the value 
 
 2. For the first iteration, perform the same number of "rounds" on each MPI rank. Measure the total runtime using `MPI_WTIME()`. Vary the number of ranks used from 1 to 4. How does the total runtime change?
 
+    !["Hello World! In Serial](4_2.png)
+
+Even though we did not use any communication methods between nodes, average runtime improved when we tried to use more than one node.
+
 3. Now, divide the number of "rounds" up amongst the number of ranks using the appropriate MPI routines to decide how to distribute the work. Again, run the program on 1 to 4 ranks. How does the runtime vary now?
+
+    !["Hello World! In Serial](4_3.png)
+
+Now that we are utilizing all nodes and splitting the work between them, we are seing a steady improvement on run time.
 
 4. Now let's change the number of "darts" and ranks. Use your MPI program to compute `pi` using total numbers of "darts" of 1E3, 1E6, and 1E9\. For each dart count, run your code on HPCC with processor counts of 1, 2, 4, 8, 16, 32, and 64\. Keep track of the resulting value of `pi` and the runtimes. Use non-interactive jobs and modify the `submitjob.sb` script as necessary.
 

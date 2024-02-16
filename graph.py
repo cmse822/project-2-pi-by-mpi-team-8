@@ -2,18 +2,33 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-processor_counts = [1, 2, 4, 8, 16, 32, 64]
+# processor_counts = [1, 2, 4, 8, 16, 32, 64]
+processor_counts = [1, 2, 3, 4]
 node_counts = ['', '_2', '_4', '_8', '_16', '_32']
 all_data = pd.DataFrame([])
 
 # Read the data from the file
 data_list = []
-for count in processor_counts:
-    file_name = str(count) + '-processes.csv'
-    data = pd.read_csv(file_name, names=['pi', 'cores', 'dart count', 'run time', 'node', 'convergence'])
-    data_list.append(data)
+# for count in processor_counts:
+#     file_name = str(count) + '-processes.csv'
+#     data = pd.read_csv(file_name, names=['pi', 'cores', 'dart count', 'run time', 'node', 'convergence'])
+#     data_list.append(data)
 
-all_data = pd.concat(data_list, ignore_index=True)
+# all_data = pd.concat(data_list, ignore_index=True)
+
+data_list = pd.read_csv('processes-4_3.csv', names=['pi', 'cores', 'dart count', 'run time', 'node'], index_col=False)
+subset_data = pd.DataFrame(columns=['cores', 'run time'])
+subset_data[['cores', 'run time']] = data_list[['cores', 'run time']]
+subset_data = subset_data.groupby(['cores'], as_index=False).mean()
+
+plt.figure()
+plt.plot(subset_data['cores'], subset_data['run time'], marker='o', label=f'{processor_counts} ranks')
+plt.xlabel('Rank')
+plt.ylabel('Run Time')
+plt.title(f'Runtime vs. Ranks Count for 1000 darts')
+plt.legend()
+plt.grid(True)
+plt.show()
 
 # True value of pi
 # true_pi = np.pi
@@ -70,61 +85,61 @@ all_data = pd.concat(data_list, ignore_index=True)
 #     for i, count in enumerate(processor_counts):
 #         print(f"{count} processors: {efficiency[i]}")
 
-data_list = []
-for count in node_counts:
-    file_name = '64-processes' + str(count) + '.csv'
-    data = pd.read_csv(file_name, names=['pi', 'nodes', 'dart count', 'run time', 'node', 'convergence'])
-    data_list.append(data)
+# data_list = []
+# for count in node_counts:
+#     file_name = '64-processes' + str(count) + '.csv'
+#     data = pd.read_csv(file_name, names=['pi', 'nodes', 'dart count', 'run time', 'node', 'convergence'])
+#     data_list.append(data)
 
-all_data = pd.concat(data_list, ignore_index=True)
+# all_data = pd.concat(data_list, ignore_index=True)
 
-# Group data by dart count
-grouped_data = all_data.groupby('dart count')
+# # Group data by dart count
+# grouped_data = all_data.groupby('dart count')
 
-# Plot 1: Runtime vs Nodes for dart count 100
-plt.figure(figsize=(10, 6))
-for name, group in grouped_data:
-    if name == 1000:  # Change 100 to the dart count you want to plot
-        plt.plot(group['nodes'], group['run time'], marker='o', label=f'Dart Count: {name}')
+# # Plot 1: Runtime vs Nodes for dart count 100
+# plt.figure(figsize=(10, 6))
+# for name, group in grouped_data:
+#     if name == 1000:  # Change 100 to the dart count you want to plot
+#         plt.plot(group['nodes'], group['run time'], marker='o', label=f'Dart Count: {name}')
 
-plt.xlabel('Nodes')
-plt.ylabel('Runtime')
-plt.title('Runtime vs Nodes for Dart Count 10e3 (64 cores)')
-plt.xticks(processor_counts)  # Set processor counts as xticks
-plt.gca().set_xticklabels(processor_counts, rotation=45, ha='right')  # Rotate xticks for better visibility
-plt.legend()
-plt.grid(True, axis='y')  # Only grid lines on y-axis
-plt.grid(True, axis='x', which='major', linestyle='--')  # Grid lines on x-axis aligned with processor counts
-plt.show()
+# plt.xlabel('Nodes')
+# plt.ylabel('Runtime')
+# plt.title('Runtime vs Nodes for Dart Count 10e3 (64 cores)')
+# plt.xticks(processor_counts)  # Set processor counts as xticks
+# plt.gca().set_xticklabels(processor_counts, rotation=45, ha='right')  # Rotate xticks for better visibility
+# plt.legend()
+# plt.grid(True, axis='y')  # Only grid lines on y-axis
+# plt.grid(True, axis='x', which='major', linestyle='--')  # Grid lines on x-axis aligned with processor counts
+# plt.show()
 
-# Plot 2: Runtime vs Nodes for dart count 500
-plt.figure(figsize=(10, 6))
-for name, group in grouped_data:
-    if name == 1000000:  # Change 500 to the dart count you want to plot
-        plt.plot(group['nodes'], group['run time'], marker='o', label=f'Dart Count: {name}')
+# # Plot 2: Runtime vs Nodes for dart count 500
+# plt.figure(figsize=(10, 6))
+# for name, group in grouped_data:
+#     if name == 1000000:  # Change 500 to the dart count you want to plot
+#         plt.plot(group['nodes'], group['run time'], marker='o', label=f'Dart Count: {name}')
 
-plt.xlabel('Nodes')
-plt.ylabel('Runtime')
-plt.title('Runtime vs Nodes for Dart Count 10e6 (64 cores)')
-plt.xticks(processor_counts)  # Set processor counts as xticks
-plt.gca().set_xticklabels(processor_counts, rotation=45, ha='right')  # Rotate xticks for better visibility
-plt.legend()
-plt.grid(True, axis='y')  # Only grid lines on y-axis
-plt.grid(True, axis='x', which='major', linestyle='--')  # Grid lines on x-axis aligned with processor counts
-plt.show()
+# plt.xlabel('Nodes')
+# plt.ylabel('Runtime')
+# plt.title('Runtime vs Nodes for Dart Count 10e6 (64 cores)')
+# plt.xticks(processor_counts)  # Set processor counts as xticks
+# plt.gca().set_xticklabels(processor_counts, rotation=45, ha='right')  # Rotate xticks for better visibility
+# plt.legend()
+# plt.grid(True, axis='y')  # Only grid lines on y-axis
+# plt.grid(True, axis='x', which='major', linestyle='--')  # Grid lines on x-axis aligned with processor counts
+# plt.show()
 
-# Plot 3: Runtime vs Nodes for dart count 1000
-plt.figure(figsize=(10, 6))
-for name, group in grouped_data:
-    if name == 1000000000:  # Change 1000 to the dart count you want to plot
-        plt.plot(group['nodes'], group['run time'], marker='o', label=f'Dart Count: {name}')
+# # Plot 3: Runtime vs Nodes for dart count 1000
+# plt.figure(figsize=(10, 6))
+# for name, group in grouped_data:
+#     if name == 1000000000:  # Change 1000 to the dart count you want to plot
+#         plt.plot(group['nodes'], group['run time'], marker='o', label=f'Dart Count: {name}')
 
-plt.xlabel('Nodes')
-plt.ylabel('Runtime')
-plt.title('Runtime vs Nodes for Dart Count 10e9 (64 cores)')
-plt.xticks(processor_counts)  # Set processor counts as xticks
-plt.gca().set_xticklabels(processor_counts, rotation=45, ha='right')  # Rotate xticks for better visibility
-plt.legend()
-plt.grid(True, axis='y')  # Only grid lines on y-axis
-plt.grid(True, axis='x', which='major', linestyle='--')  # Grid lines on x-axis aligned with processor counts
-plt.show()
+# plt.xlabel('Nodes')
+# plt.ylabel('Runtime')
+# plt.title('Runtime vs Nodes for Dart Count 10e9 (64 cores)')
+# plt.xticks(processor_counts)  # Set processor counts as xticks
+# plt.gca().set_xticklabels(processor_counts, rotation=45, ha='right')  # Rotate xticks for better visibility
+# plt.legend()
+# plt.grid(True, axis='y')  # Only grid lines on y-axis
+# plt.grid(True, axis='x', which='major', linestyle='--')  # Grid lines on x-axis aligned with processor counts
+# plt.show()

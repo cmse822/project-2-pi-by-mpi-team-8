@@ -43,8 +43,8 @@ int main(int argc, char *argv[])
    MPI_Init(&argc, &argv);
    MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
    MPI_Comm comm = MPI_COMM_WORLD;
-
    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
    snprintf(log_file_name, sizeof(log_file_name), "%d-processes.log", numtasks);
    snprintf(csv_file_name, sizeof(csv_file_name), "%d-processes.csv", numtasks);
    log_file = fopen(log_file_name, "a+");  // a+ (create + append) option will allow appending which is useful in a log file

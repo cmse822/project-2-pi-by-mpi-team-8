@@ -42,8 +42,8 @@ MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
 MPI_Comm comm = MPI_COMM_WORLD;
 MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-snprintf(log_file_name, sizeof(log_file_name), "processes-4_3.log");
-snprintf(csv_file_name, sizeof(csv_file_name), "processes-4_3.csv");
+snprintf(log_file_name, sizeof(log_file_name), "processes-4_2.log");
+snprintf(csv_file_name, sizeof(csv_file_name), "processes-4_2.csv");
 log_file = fopen(log_file_name, "a+");
 data_file = fopen(csv_file_name, "a+");
 
@@ -54,7 +54,7 @@ fprintf(log_file , "Process %d running on %s\n", rank, hostname);
 
 srandom (5);            /* seed the random number generator */
 avepi = 0;
-for (i = 0; i < ROUNDS / numtasks; i++)
+for (i = 0; i < ROUNDS; i++)
 {
    /* Perform pi calculation on serial processor */
    pi = dboard(DARTS);
@@ -62,9 +62,6 @@ for (i = 0; i < ROUNDS / numtasks; i++)
    // printf("   After %3d throws, average value of pi = %10.8f\n",
    //       (DARTS * (i + 1)),avepi);
 }
-
-MPI_Reduce(&avepi, &pi_avg_sum, 1, MPI_DOUBLE, MPI_SUM, PARENT_NODE, comm);
-
 
 double time_end = MPI_Wtime();
 fprintf(log_file, "\nTotal time: %f for rank %d\n", (time_end - time_start), rank);
