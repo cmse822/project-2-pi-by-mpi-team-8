@@ -1,0 +1,64 @@
+Number of tasks= 1 My rank= 0 Running on 
+Process 0 running on Berks-MBP.attlocal.net
+
+Total time: 0.016648 for rank 0
+Pi Avg.: 3.141744 
+
+Real value of PI: 3.1415926535897 
+Number of tasks= 2 My rank= 0 Running on 
+Process 0 running on Berks-MBP.attlocal.net
+
+Total time: 0.006673 for rank 0
+Pi Avg.: 3.141408 
+
+Real value of PI: 3.1415926535897 
+Number of tasks= 2 My rank= 1 Running on 
+Process 1 running on Berks-MBP.attlocal.net
+
+Total time: 0.006541 for rank 1
+
+Real value of PI: 3.1415926535897 
+Number of tasks= 3 My rank= 0 Running on 
+Process 0 running on Berks-MBP.attlocal.net
+
+Total time: 0.004282 for rank 0
+Pi Avg.: 3.142206 
+
+Real value of PI: 3.1415926535897 
+Number of tasks= 3 My rank= 1 Running on 
+Process 1 running on Berks-MBP.attlocal.net
+
+Total time: 0.004272 for rank 1
+
+Real value of PI: 3.1415926535897 
+Number of tasks= 3 My rank= 2 Running on 
+Process 2 running on Berks-MBP.attlocal.net
+
+Total time: 0.004270 for rank 2
+
+Real value of PI: 3.1415926535897 
+Number of tasks= 4 My rank= 2 Running on 
+Process 2 running on Berks-MBP.attlocal.net
+
+Total time: 0.003137 for rank 2
+
+Real value of PI: 3.1415926535897 
+Number of tasks= 4 My rank= 3 Running on 
+Process 3 running on Berks-MBP.attlocal.net
+
+Total time: 0.003064 for rank 3
+
+Real value of PI: 3.1415926535897 
+Number of tasks= 4 My rank= 1 Running on 
+Process 1 running on Berks-MBP.attlocal.net
+
+Total time: 0.003142 for rank 1
+
+Real value of PI: 3.1415926535897 
+Number of tasks= 4 My rank= 0 Running on 
+Process 0 running on Berks-MBP.attlocal.net
+
+Total time: 0.003146 for rank 0
+Pi Avg.: 3.141936 
+
+Real value of PI: 3.1415926535897 
